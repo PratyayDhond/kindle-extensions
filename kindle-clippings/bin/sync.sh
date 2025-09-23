@@ -15,7 +15,6 @@ done
 
 # Function to clear screen and show message in true center (both X and Y axis)
 show_kindle_message_center() {
-    show_creator_credit
     if [ "${FBINK_BIN}" != "true" ]; then
         # Clear screen to white first
         ${FBINK_BIN} -c
@@ -51,16 +50,38 @@ show_kindle_message_bottom() {
     usleep 150000 || sleep 0.15
 }
 
-# Function to show creator credit at bottom
-show_creator_credit() {
-    if [ "${FBINK_BIN}" != "true" ]; then
-        # Show at bottom without clearing screen
-        ${FBINK_BIN} -qm -y -2 "Created by Pratyay Dhond"
-    elif command -v eips >/dev/null 2>&1; then
-        eips 5 35 "Created by Pratyay Dhond" >/dev/null
-    fi
-}
+MESSAGE_ROW=5
 
+show_message_line() {
+    if [ "${FBINK_BIN}" != "true" ]; then
+        # Don't clear screen, just add message at current row
+        ${FBINK_BIN} -qm -y $MESSAGE_ROW "$1"
+    elif command -v eips >/dev/null 2>&1; then
+        eips 0 $MESSAGE_ROW "$1" >/dev/null
+    fi
+    
+    # Log it too
+    echo "$1" >> "$LOG_FILE"
+    
+    # Move to next row for next message
+    MESSAGE_ROW=$((MESSAGE_ROW + 1))
+    
+    # If we're getting too close to bottom credit, reset to middle area
+    if [ $MESSAGE_ROW -gt 30 ]; then
+        MESSAGE_ROW=10
+        # Clear middle area but keep title and credit
+        if [ "${FBINK_BIN}" != "true" ]; then
+            # Clear middle section only (rows 5-30)
+            for i in $(seq 5 30); do
+                ${FBINK_BIN} -qm -y $i " "
+            done
+        fi
+        MESSAGE_ROW=10
+    fi
+    
+    # Sleep for e-ink update
+    usleep 150000 || sleep 0.15
+}
 
 # Function to refresh Kindle library and return to home screen
 refresh_kindle_library() {
@@ -98,8 +119,15 @@ SECRET_FILE="/mnt/us/kindle_secret.kindle_clippings"
 RETRIES=6
 SLEEP=15
 
+if [ "${FBINK_BIN}" != "true" ]; then
+    ${FBINK_BIN} -c
+fi
+show_message_line "Kindle-Clippings" 
+show_message_line "Made by Pratyay Dhond!"
+sleep 5
+
 # Clear screen and show centered messages (Option 1: Clean white screen, center)
-show_kindle_message_center "Kindle Highlight Sync v2.1"
+show_kindle_message_center "Kindle Highlight Sync v1.0"
 sleep 1
 show_kindle_message_center "Initializing..."
 
