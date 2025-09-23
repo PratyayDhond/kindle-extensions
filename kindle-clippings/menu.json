@@ -1,0 +1,19 @@
+{
+    "items": [
+        {
+            "name": "Kindle-Clippings",
+            "priority": 10,
+            "items": [
+                {
+                    "name": "Upload Highlights",
+                    "priority": 1,
+                    "action": "/mnt/us/extensions/Kindle-Clippings/bin/sync.sh",
+                    "params": "",
+                    "status": false,
+                    "exitmenu": true
+                }
+            ]
+        }
+    ]
+}
+

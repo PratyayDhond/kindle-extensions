@@ -1,0 +1,32 @@
+Starting Kindle-Clippings sync...
+Kindle Highlight Sync v2.1
+Initializing...
+Reading configuration...
++ echo 'Secret line: 686b56122919ad72d4ddbeae,d765bf0d9ce2382511a9f4b5b61cc9288b45d49e3aabcc56740aae2245bb6250,http://192.168.1.6:3000'
+Secret line: 686b56122919ad72d4ddbeae,d765bf0d9ce2382511a9f4b5b61cc9288b45d49e3aabcc56740aae2245bb6250,http://192.168.1.6:3000
++ set -x
++ echo 'USER_ID: 686b56122919ad72d4ddbeae'
+USER_ID: 686b56122919ad72d4ddbeae
++ set -x
++ echo 'API_URL: http://192.168.1.6:3000'
+API_URL: http://192.168.1.6:3000
+Attempt 1/6: Uploading...
++ set -x
++ echo 'Executing curl to http://192.168.1.6:3000/kindle/upload-clippings'
+Executing curl to http://192.168.1.6:3000/kindle/upload-clippings
++ set -x
++ echo 'Full response: {"success":true,"message":"Upload successful! Processed 1 books. Charged 1 coins.","summary":{"totalBooks":1,"newBooks":0,"newHighlights":0,"coinsCharged":1,"remainingCoins":99990},"stats":{"_id":"686b56172919ad72d4ddbeb1","userId":"686b56122919ad72d4ddbeae","totalBooks":100,"totalHighlights":6302,"avgHighlights":63.02,"maxHighlights":537,"updatedAt":"2025-09-23T18:04:34.230Z","__v":0}}
+HTTP 200'
+Full response: {"success":true,"message":"Upload successful! Processed 1 books. Charged 1 coins.","summary":{"totalBooks":1,"newBooks":0,"newHighlights":0,"coinsCharged":1,"remainingCoins":99990},"stats":{"_id":"686b56172919ad72d4ddbeb1","userId":"686b56122919ad72d4ddbeae","totalBooks":100,"totalHighlights":6302,"avgHighlights":63.02,"maxHighlights":537,"updatedAt":"2025-09-23T18:04:34.230Z","__v":0}}
+HTTP 200
++ set -x
++ echo 'HTTP Code: 200'
+HTTP Code: 200
+SUCCESS!
+Highlights uploaded successfully!
++ set -x
++ echo 'Refreshing Kindle library...'
+Refreshing Kindle library...
++ set -x
++ echo 'Returned to Kindle home screen'
+Returned to Kindle home screen
