@@ -147,10 +147,10 @@ refresh_kindle_library() {
 }
 
 # Configuration
-SECRET_FILE="/mnt/us/kindle_secret.kindle_clippings"
-UPLOAD_CACHE_FILE="/mnt/us/kindle_upload_cache.txt"
-RETRIES=6
-SLEEP=15
+SECRET_FILE="/mnt/us/extensions/kindle-clippings/kindle_secret.kindle_clippings"
+UPLOAD_CACHE_FILE="/mnt/us/extensions/kindle-clippings/kindle_upload_cache.txt"
+RETRIES=1
+SLEEP=0
 
 # Show startup screen
 if [ "${FBINK_BIN}" != "true" ]; then
@@ -498,7 +498,7 @@ if [ ! -z "$UPLOAD_FILE_1" ]; then
         RESPONSE=$(curl -s -w "\nHTTP %{http_code}" \
             -F "userId=$USER_ID" \
             -F "secretKey=$SECRET_KEY" \
-            -F "file=@$UPLOAD_FILE_1;type=text/plain" \
+            -F "file=@\"$UPLOAD_FILE_1\";type=text/plain" \
             "$API_URL/kindle/upload-clippings" 2>> "$LOG_FILE")
 
         HTTP_CODE=$(echo "$RESPONSE" | tail -n1 | awk '{print $2}')
@@ -581,9 +581,9 @@ if [ ! -z "$UPLOAD_FILE_2" ]; then
         RESPONSE=$(curl -s -w "\nHTTP %{http_code}" \
             -F "userId=$USER_ID" \
             -F "secretKey=$SECRET_KEY" \
-            -F "file=@$UPLOAD_FILE_2;type=text/plain" \
+            -F "file=@\"$UPLOAD_FILE_2\";type=text/plain" \
             "$API_URL/kindle/upload-clippings" 2>> "$LOG_FILE")
-
+        
         HTTP_CODE=$(echo "$RESPONSE" | tail -n1 | awk '{print $2}')
 
         # Check for fatal errors that should exit immediately
@@ -664,7 +664,7 @@ if [ ! -z "$UPLOAD_FILE_3" ]; then
         RESPONSE=$(curl -s -w "\nHTTP %{http_code}" \
             -F "userId=$USER_ID" \
             -F "secretKey=$SECRET_KEY" \
-            -F "file=@$UPLOAD_FILE_3;type=text/plain" \
+            -F "file=@\"$UPLOAD_FILE_3\";type=text/plain" \
             "$API_URL/kindle/upload-clippings" 2>> "$LOG_FILE")
 
         HTTP_CODE=$(echo "$RESPONSE" | tail -n1 | awk '{print $2}')
@@ -747,7 +747,7 @@ if [ ! -z "$UPLOAD_FILE_4" ]; then
         RESPONSE=$(curl -s -w "\nHTTP %{http_code}" \
             -F "userId=$USER_ID" \
             -F "secretKey=$SECRET_KEY" \
-            -F "file=@$UPLOAD_FILE_4;type=text/plain" \
+            -F "file=@\"$UPLOAD_FILE_4\";type=text/plain" \
             "$API_URL/kindle/upload-clippings" 2>> "$LOG_FILE")
 
         HTTP_CODE=$(echo "$RESPONSE" | tail -n1 | awk '{print $2}')
